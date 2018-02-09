@@ -25,6 +25,7 @@ class Endpoint
         $this->http = $http;
         $this->logger = $logger;
         $this->mapper = $mapper;
+        $this->mapper->bEnforceMapType = false;
     }
 
     public function setClient(Client $http)
@@ -58,6 +59,7 @@ class Endpoint
 
     protected function hydrateMany(array $data, $modelName)
     {
+        $this->mapper->bEnforceMapType = false;
         $collection = new Collection($this->mapper->mapArray($data['results'], [], $modelName));
         $collection->setEndpoint($this);
         $collection->setNext($data['next']);
